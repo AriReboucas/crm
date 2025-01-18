@@ -17,6 +17,22 @@ export const getAllClassrooms = async (req: Request, res: Response) => {
     }
 }
 
+export const getClassroom = async (req: Request, res: Response) => {
+    try {
+        const { classroomId } = req.params;
+
+        const classroom = await prisma.classroom.findUnique({
+            where: {
+                id: Number(classroomId)
+            }
+        });
+
+        res.status(200).json(classroom);
+    } catch (error) {
+        res.status(500).json({ error: error })
+    }
+}
+
 export const createClassroom = async (req: Request, res: Response) => {
     try {
         const { professorId } = req.params;
