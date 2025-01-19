@@ -14,11 +14,11 @@ jest.mock('../controllers/auth.controller', () => ({
 
 const app = express();
 app.use(express.json());
-app.post("/login", login);
+app.post("/auth/login", login);
 
 describe("Auth Controller", () => {
     it("should login a professor", async () => {
-        const response = await request(app).post("/login").send(auth);
+        const response = await request(app).post("/auth/login").send(auth);
 
         expect(response.body).toEqual(auth);
         expect(response.status).toBe(200);
