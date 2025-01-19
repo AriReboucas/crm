@@ -2,16 +2,26 @@
 
 import { Container, Box, Typography, TextField, Button } from "@mui/material";
 import { useState } from "react";
+import { login } from "@/services/auth.service";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
+    setError("");
     event.preventDefault();
 
-    console.log("Email:", email);
-    console.log("Password:", password);
+    try {
+      const response = await login(email, password);
+
+      localStorage.setItem("token", response.id);
+
+      window.location.href = "/classrooms";
+    } catch (_) {
+      setError("Invalid email or password");
+    }
   };
 
   return (
@@ -59,6 +69,8 @@ const LoginPage = () => {
         <Button variant="contained" color="primary" type="submit" fullWidth>
           Login
         </Button>
+
+        {error && <Typography color="error">{error}</Typography>}
       </Box>
     </Container>
   );

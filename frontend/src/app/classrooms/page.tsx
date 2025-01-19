@@ -16,11 +16,7 @@ import { useRouter } from "next/navigation";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-
-const getClassroomsFromLocalStorage = () => {
-  const classrooms = localStorage.getItem("classrooms");
-  return classrooms ? JSON.parse(classrooms) : [];
-};
+import { getAllClassrooms } from "@/services/classroom.service";
 
 const ClassroomsPage = () => {
   const [classrooms, setClassrooms] = useState<any[]>([]);
@@ -31,9 +27,14 @@ const ClassroomsPage = () => {
   const [activityToDelete, setActivityToDelete] = useState<string | null>(null);
   const router = useRouter();
 
+  const getClassroomsFromLocalStorage = async () => {
+    const classrooms = await getAllClassrooms();
+
+    setClassrooms(classrooms);
+  };
+
   useEffect(() => {
-    const storedClassrooms = getClassroomsFromLocalStorage();
-    setClassrooms(storedClassrooms);
+    getClassroomsFromLocalStorage();
   }, []);
 
   const handleEdit = (id: string) => {
