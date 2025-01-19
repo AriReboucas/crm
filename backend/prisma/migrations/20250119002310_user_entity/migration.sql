@@ -25,3 +25,6 @@ CREATE TABLE "Activity" (
     "classroom_id" INTEGER NOT NULL,
     CONSTRAINT "Activity_classroom_id_fkey" FOREIGN KEY ("classroom_id") REFERENCES "Classroom" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Professor_email_key" ON "Professor"("email");
