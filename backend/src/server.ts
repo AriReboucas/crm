@@ -13,6 +13,8 @@ async function main() {
     app.use("/auth", Routes.Auth);
     app.use("/professor", Routes.Professor);
     app.use("/classroom", Routes.Classroom);
+    app.use("/activity", Routes.Activity);
+
 
     app.all("*", (req: Request, res: Response) => {
         res.status(404).json({ error: `Route ${req.originalUrl} not found` });
