@@ -1,10 +1,14 @@
 import { Request, Response } from "express";
 import { prisma } from "../server";
+import { createActivitySchema, updateActivitySchema } from "../types/activity.types";
+import { ZodError } from "zod";
 
 export const createActivity = async (req: Request, res: Response) => {
     try {
         const { classroomId } = req.params;
-        const { title, description, subject } = req.body;
+
+        const body = createActivitySchema.parse(req.body);
+        const { title, description, subject } = body;
 
         const createdActivity = await prisma.activity.create({
             data: {
@@ -17,14 +21,25 @@ export const createActivity = async (req: Request, res: Response) => {
 
         res.status(201).json(createdActivity);
     } catch (error) {
-        res.status(500).json({ error: error })
+        if (error instanceof ZodError) {
+            res.status(400).json({
+                errors: error.errors.map((err) => ({
+                    path: err.path,
+                    message: err.message,
+                })),
+            });
+        } else {
+            res.status(500).json({ error: "Erro interno do servidor." });
+        }
     }
 }
 
 export const updateActivity = async (req: Request, res: Response) => {
     try {
         const { activityId } = req.params;
-        const { title, description, subject } = req.body;
+
+        const body = updateActivitySchema.parse(req.body);
+        const { title, description, subject } = body;
 
         const updatedActivity = await prisma.activity.update({
             where: {
@@ -39,7 +54,16 @@ export const updateActivity = async (req: Request, res: Response) => {
 
         res.status(200).json(updatedActivity);
     } catch (error) {
-        res.status(500).json({ error: error })
+        if (error instanceof ZodError) {
+            res.status(400).json({
+                errors: error.errors.map((err) => ({
+                    path: err.path,
+                    message: err.message,
+                })),
+            });
+        } else {
+            res.status(500).json({ error: "Erro interno do servidor." });
+        }
     }
 }
 
