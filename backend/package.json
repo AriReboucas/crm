@@ -6,7 +6,7 @@
     "start": "ts-node-dev --respawn --transpile-only --exit-child src/server.ts",
     "db:migrate": "npx prisma migrate dev --name user-entity --create-only && npx prisma generate",
     "db:push": "npx prisma db push",
-    "test": "jest", 
+    "test": "jest",
     "test:w": "jest --watch --onlyChanged"
   },
   "compilerOptions": {
@@ -22,6 +22,7 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
     "@types/jest": "^29.5.14",
     "@types/node": "^22.10.7",
@@ -35,6 +36,7 @@
   },
   "dependencies": {
     "@prisma/client": "^6.2.1",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "zod": "^3.24.1"
