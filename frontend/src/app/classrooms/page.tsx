@@ -27,14 +27,14 @@ const ClassroomsPage = () => {
   const [activityToDelete, setActivityToDelete] = useState<string | null>(null);
   const router = useRouter();
 
-  const getClassroomsFromLocalStorage = async () => {
+  const fetchClassrooms = async () => {
     const classrooms = await getAllClassrooms();
 
     setClassrooms(classrooms);
   };
 
   useEffect(() => {
-    getClassroomsFromLocalStorage();
+    fetchClassrooms();
   }, []);
 
   const handleEdit = (id: string) => {
@@ -84,7 +84,7 @@ const ClassroomsPage = () => {
   };
 
   const handleCreate = () => {
-    router.push("/create-classroom");
+    router.push("/classrooms/new");
   };
 
   const handleClassroomClick = (id: string) => {

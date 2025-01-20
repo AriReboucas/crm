@@ -1,7 +1,8 @@
 import api from "@/utils/api";
 
-export const createClassroom = async (professorId: string, classroom: any) => {
-    const response = await api.post(`/professor/${professorId}/classroom`, classroom);
+export const createClassroom = async (classroom: any) => {
+    const professorId = localStorage.getItem("token");
+    const response = await api.post(`/professor/${professorId}/classrooms`, classroom);
 
     return response.data;
 }
