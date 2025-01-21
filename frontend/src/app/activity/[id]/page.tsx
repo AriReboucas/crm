@@ -25,7 +25,7 @@ const ActivityPage = () => {
   }
 
   return (
-    <div>
+    <div suppressHydrationWarning>
       <h1>Detalhes da Atividade: {activity?.title}</h1>
       <h2>Matéria: {activity?.subject}</h2>
       <p>Descrição: {activity?.description}</p>

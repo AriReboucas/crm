@@ -7,7 +7,7 @@ const EditClassroom = () => {
   const classroomId = params.id; // Valor capturado da URL (17, por exemplo).
 
   return (
-    <div>
+    <div suppressHydrationWarning>
       <h1>Editando Atividade</h1>
       <p>ID da Atividade: {classroomId}</p>
     </div>
