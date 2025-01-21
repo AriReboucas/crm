@@ -26,6 +26,9 @@ export const getClassroom = async (req: Request, res: Response) => {
         const classroom = await prisma.classroom.findUnique({
             where: {
                 id: Number(classroomId)
+            },
+            include: {
+                activities: true
             }
         });
 
