@@ -15,8 +15,10 @@ import {
 import { useRouter } from "next/navigation";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import { getAllClassrooms } from "@/services/classroom.service";
+import {
+  deleteClassroom,
+  getAllClassrooms,
+} from "@/services/classroom.service";
 
 const ClassroomsPage = () => {
   const [classrooms, setClassrooms] = useState<any[]>([]);
@@ -24,7 +26,6 @@ const ClassroomsPage = () => {
   const [classroomToDelete, setClassroomToDelete] = useState<string | null>(
     null
   );
-  const [activityToDelete, setActivityToDelete] = useState<string | null>(null);
   const router = useRouter();
 
   const fetchClassrooms = async () => {
@@ -38,7 +39,7 @@ const ClassroomsPage = () => {
   }, []);
 
   const handleEdit = (id: string) => {
-    router.push(`/edit-classroom/${id}`);
+    router.push(`/classrooms/${id}/edit`);
   };
 
   const handleDeleteOpen = (id: string) => {
@@ -48,39 +49,19 @@ const ClassroomsPage = () => {
 
   const handleDeleteClose = () => {
     setClassroomToDelete(null);
-    setActivityToDelete(null);
     setOpenModal(false);
   };
 
-  const handleDeleteClassroom = () => {
+  const handleDeleteClassroom = async () => {
     if (classroomToDelete) {
-      const updatedClassrooms = classrooms.filter(
-        (classroom) => classroom.id !== classroomToDelete
-      );
-      localStorage.setItem("classrooms", JSON.stringify(updatedClassrooms));
-      setClassrooms(updatedClassrooms);
+      const responseDeletedClassroom = await deleteClassroom(classroomToDelete);
+
+      if (responseDeletedClassroom) {
+        await fetchClassrooms();
+      }
+
       handleDeleteClose();
     }
-  };
-
-  const handleDeleteActivity = (classroomId: string, activityId: string) => {
-    const updatedClassrooms = classrooms.map((classroom) =>
-      classroom.id === classroomId
-        ? {
-            ...classroom,
-            activities: classroom.activities?.filter(
-              (activity) => activity.id !== activityId
-            ),
-          }
-        : classroom
-    );
-    localStorage.setItem("classrooms", JSON.stringify(updatedClassrooms));
-    setClassrooms(updatedClassrooms);
-    handleDeleteClose();
-  };
-
-  const handleCreateActivity = (classroomId: string) => {
-    router.push(`/create-activity/${classroomId}`);
   };
 
   const handleCreate = () => {
@@ -150,61 +131,8 @@ const ClassroomsPage = () => {
                   >
                     <DeleteIcon />
                   </IconButton>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={() => handleCreateActivity(classroom.id)}
-                  >
-                    Criar Atividade
-                  </Button>
                 </Box>
               </Box>
-
-              {classroom.activities && classroom.activities.length > 0 ? (
-                <Box sx={{ marginTop: 2 }}>
-                  <Typography variant="h6">Atividades:</Typography>
-                  {classroom.activities.map((activity: any) => (
-                    <Box key={activity.id} sx={{ marginBottom: 1 }}>
-                      <Typography variant="body1">{activity.title}</Typography>
-                      <Typography variant="body2">
-                        {activity.description}
-                      </Typography>
-                      <Box sx={{ display: "flex", gap: 1 }}>
-                        <IconButton
-                          color="primary"
-                          onClick={() =>
-                            router.push(`/edit-activity/${activity.id}`)
-                          }
-                        >
-                          <EditIcon />
-                        </IconButton>
-                        <IconButton
-                          color="secondary"
-                          onClick={() => {
-                            setActivityToDelete(activity.id);
-                            setClassroomToDelete(classroom.id);
-                            setOpenModal(true);
-                          }}
-                        >
-                          <DeleteIcon />
-                        </IconButton>
-                        <IconButton
-                          color="default"
-                          onClick={() =>
-                            router.push(`/view-activity/${activity.id}`)
-                          }
-                        >
-                          <VisibilityIcon />
-                        </IconButton>
-                      </Box>
-                    </Box>
-                  ))}
-                </Box>
-              ) : (
-                <Typography variant="body2" color="text.secondary">
-                  Nenhuma atividade criada para esta sala.
-                </Typography>
-              )}
             </ListItem>
           ))}
         </List>
@@ -230,29 +158,16 @@ const ClassroomsPage = () => {
           }}
         >
           <Typography variant="h6" gutterBottom>
-            Tem certeza de que deseja excluir{" "}
-            {activityToDelete ? "a atividade?" : "esta sala?"}
+            Tem certeza de que deseja excluir esta sala?
           </Typography>
           <Box sx={{ display: "flex", gap: 2 }}>
-            {activityToDelete ? (
-              <Button
-                variant="contained"
-                color="error"
-                onClick={() =>
-                  handleDeleteActivity(classroomToDelete!, activityToDelete)
-                }
-              >
-                Excluir Atividade
-              </Button>
-            ) : (
-              <Button
-                variant="contained"
-                color="error"
-                onClick={handleDeleteClassroom}
-              >
-                Excluir Sala
-              </Button>
-            )}
+            <Button
+              variant="contained"
+              color="error"
+              onClick={handleDeleteClassroom}
+            >
+              Excluir Sala
+            </Button>
             <Button
               variant="outlined"
               color="primary"
