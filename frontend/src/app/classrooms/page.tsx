@@ -21,6 +21,7 @@ import {
   deleteClassroom,
   getAllClassrooms,
 } from "@/services/classroom.service";
+import { IClassroom } from "@/types";
 
 const ClassroomsPage = () => {
   const [classrooms, setClassrooms] = useState<any[]>([]);
@@ -135,7 +136,7 @@ const ClassroomsPage = () => {
         </Typography>
       ) : (
         <List>
-          {classrooms.map((classroom) => (
+          {classrooms.map((classroom: IClassroom) => (
             <ListItem
               key={classroom.id}
               sx={{

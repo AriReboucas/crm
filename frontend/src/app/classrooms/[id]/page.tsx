@@ -18,6 +18,7 @@ import { ChevronLeft } from "@mui/icons-material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import { deleteActivity } from "@/services/activity.service";
+import { IActivity, IClassroom } from "@/types";
 
 const ClassroomDetailPage = () => {
   const params = useParams();
@@ -28,7 +29,7 @@ const ClassroomDetailPage = () => {
   }
   const classroomId = params.id;
 
-  const [classroom, setClassroom] = useState();
+  const [classroom, setClassroom] = useState<IClassroom | null>();
   const [activityToDelete, setActivityToDelete] = useState<string | null>(null);
   const [openModal, setOpenModal] = useState(false);
 
@@ -198,7 +199,7 @@ const ClassroomDetailPage = () => {
         </Button>
       </Box>
 
-      {classroom.activities.length === 0 ? (
+      {classroom.activities && classroom.activities.length === 0 ? (
         <Typography
           variant="body1"
           gutterBottom
@@ -211,48 +212,49 @@ const ClassroomDetailPage = () => {
         </Typography>
       ) : (
         <List>
-          {classroom.activities.map((activity: any) => (
-            <ListItem
-              key={activity.id}
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                paddingY: 1,
-                borderBottom: "1px solid #ddd",
-              }}
-            >
-              <Box
+          {classroom.activities &&
+            classroom.activities.map((activity: IActivity) => (
+              <ListItem
+                key={activity.id}
                 sx={{
                   display: "flex",
                   justifyContent: "space-between",
-                  alignItems: "center",
+                  paddingY: 1,
+                  borderBottom: "1px solid #ddd",
                 }}
               >
-                <Button
-                  onClick={() => handleActivityClick(activity.id)}
-                  variant="text"
-                  sx={{ textAlign: "left" }}
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
                 >
-                  <Typography variant="h6">{activity.title}</Typography>
-                </Button>
-              </Box>
+                  <Button
+                    onClick={() => handleActivityClick(activity.id)}
+                    variant="text"
+                    sx={{ textAlign: "left" }}
+                  >
+                    <Typography variant="h6">{activity.title}</Typography>
+                  </Button>
+                </Box>
 
-              <Box sx={{ display: "flex", gap: 2, ml: "auto" }}>
-                <IconButton
-                  sx={{ color: "#133069" }}
-                  onClick={() => handleEditActivity(activity.id)}
-                >
-                  <EditIcon />
-                </IconButton>
-                <IconButton
-                  sx={{ color: "#D2371D" }}
-                  onClick={() => handleDeleteOpen(activity.id)}
-                >
-                  <DeleteIcon />
-                </IconButton>
-              </Box>
-            </ListItem>
-          ))}
+                <Box sx={{ display: "flex", gap: 2, ml: "auto" }}>
+                  <IconButton
+                    sx={{ color: "#133069" }}
+                    onClick={() => handleEditActivity(activity.id)}
+                  >
+                    <EditIcon />
+                  </IconButton>
+                  <IconButton
+                    sx={{ color: "#D2371D" }}
+                    onClick={() => handleDeleteOpen(activity.id)}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                </Box>
+              </ListItem>
+            ))}
         </List>
       )}
 

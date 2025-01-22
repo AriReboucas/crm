@@ -5,14 +5,20 @@ import { getActivity } from "@/services/activity.service";
 import { useEffect, useState } from "react";
 import { Box, IconButton, Typography } from "@mui/material";
 import { ChevronLeft } from "@mui/icons-material";
-import router from "next/router";
+import { IActivity } from "@/types";
 
 const ActivityPage = () => {
   const params = useParams();
-  const activityId = params.id;
+
   const router = useRouter();
 
-  const [activity, setActivity] = useState();
+  if (typeof params.id !== "string") {
+    params.id = "";
+  }
+
+  const activityId = params.id;
+
+  const [activity, setActivity] = useState<IActivity | null>();
 
   const fetchActivity = async () => {
     try {

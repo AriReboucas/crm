@@ -1,6 +1,7 @@
 "use client";
 
 import { updateActivity, getActivity } from "@/services/activity.service";
+import { IActivity } from "@/types";
 import { ChevronLeft } from "@mui/icons-material";
 import { Box, Typography, TextField, Button, IconButton } from "@mui/material";
 import { useParams, useRouter } from "next/navigation";
@@ -11,7 +12,7 @@ const EditActivityPage = () => {
   const [description, setDescription] = useState("");
   const [subject, setSubject] = useState("");
   const [error, setError] = useState("");
-  const [activity, setActivity] = useState();
+  const [activity, setActivity] = useState<IActivity | null>();
 
   const router = useRouter();
   const params = useParams();
@@ -32,7 +33,7 @@ const EditActivityPage = () => {
         subject,
       });
 
-      router.push(`/classrooms/${activity.classroom_id}`);
+      router.push(`/classrooms/${response.classroom_id}`);
     } catch (error) {
       setError("Failed to update activity");
     }
