@@ -16,6 +16,7 @@ import {
 import EditIcon from "@mui/icons-material/Edit";
 import { ChevronLeft } from "@mui/icons-material";
 import DeleteIcon from "@mui/icons-material/Delete";
+import AddIcon from "@mui/icons-material/Add";
 import { deleteActivity } from "@/services/activity.service";
 
 const ClassroomDetailPage = () => {
@@ -89,81 +90,171 @@ const ClassroomDetailPage = () => {
     <Box
       sx={{
         padding: 3,
-        maxWidth: 600,
+        maxWidth: 700,
         margin: "0 auto",
         textAlign: "center",
       }}
       suppressHydrationWarning
     >
-      <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginBottom: 3,
+        }}
+      >
         <IconButton
-          color="primary"
+          sx={{ color: "#FF7A6A", mr: 2 }}
           onClick={() => router.push("/classrooms")}
-          sx={{ mr: 2 }}
         >
           <ChevronLeft />
         </IconButton>
 
-        <Typography variant="h4" gutterBottom>
-          Sala: {classroom.name}
+        <Typography
+          variant="h4"
+          sx={{ fontWeight: 500, fontSize: { xs: 24 } }}
+          gutterBottom
+        >
+          {classroom.name}
         </Typography>
 
         <IconButton
-          color="primary"
+          sx={{ color: "#133069" }}
           onClick={() => handleEditClassroom(classroom.id)}
         >
           <EditIcon />
         </IconButton>
       </Box>
 
-      <Typography variant="h6" color="textSecondary" gutterBottom>
-        Matéria: {classroom.subject}
-      </Typography>
-      <Typography variant="body1" gutterBottom>
-        Descrição: {classroom.description}
-      </Typography>
+      <Box
+        sx={{
+          marginBottom: 3,
+          padding: 2,
+          borderRadius: 2,
+          backgroundColor: "background.paper",
+          boxShadow: 1,
+        }}
+      >
+        <Typography
+          variant="h6"
+          color="text.secondary"
+          gutterBottom
+          sx={{
+            fontWeight: "bold",
+            fontSize: { xs: "1.2rem", sm: "1.5rem" },
+            marginBottom: 1,
+          }}
+        >
+          Matéria: {classroom.subject}
+        </Typography>
+        <Typography
+          variant="body1"
+          gutterBottom
+          sx={{
+            fontSize: { xs: "1rem", sm: "1.25rem" },
+            color: "text.primary",
+          }}
+        >
+          {classroom.description}
+        </Typography>
+      </Box>
 
-      <Typography sx={{ mt: 2 }} variant="h4" gutterBottom>
-        Atividades
-      </Typography>
-      <List>
-        {classroom.activities.map((activity: any) => (
-          <ListItem
-            key={activity.id}
-            sx={{ display: "flex", flexDirection: "column", marginBottom: 2 }}
-          >
-            <Box
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          width: "auto",
+          marginBottom: 3,
+        }}
+      >
+        <Typography
+          variant="h4"
+          sx={{
+            marginLeft: 2,
+            marginBottom: 0,
+          }}
+          gutterBottom
+        >
+          Atividades
+        </Typography>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => handleCreateActivity(classroom.id)}
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            paddingX: 3,
+            marginRight: 2,
+            backgroundColor: "#FF7A6A",
+            textTransform: "none",
+            transition: "transform 0.2s ease",
+            "&:hover": { transform: "scale(1.05)" },
+          }}
+        >
+          <AddIcon />
+        </Button>
+      </Box>
+
+      {classroom.activities.length === 0 ? (
+        <Typography
+          variant="body1"
+          gutterBottom
+          sx={{
+            fontSize: { xs: "1rem", sm: "1.25rem" },
+            color: "text.primary",
+          }}
+        >
+          Nenhuma atividade cadastrada
+        </Typography>
+      ) : (
+        <List>
+          {classroom.activities.map((activity: any) => (
+            <ListItem
+              key={activity.id}
               sx={{
                 display: "flex",
                 justifyContent: "space-between",
-                alignItems: "center",
+                paddingY: 1,
+                borderBottom: "1px solid #ddd",
               }}
             >
-              <Button
-                onClick={() => handleActivityClick(activity.id)}
-                variant="text"
-                sx={{ textAlign: "left" }}
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
               >
-                <Typography variant="h6">{activity.title}</Typography>
-              </Button>
-              <Box sx={{ display: "flex", gap: 1 }}>
+                <Button
+                  onClick={() => handleActivityClick(activity.id)}
+                  variant="text"
+                  sx={{ textAlign: "left" }}
+                >
+                  <Typography variant="h6">{activity.title}</Typography>
+                </Button>
+              </Box>
+
+              <Box sx={{ display: "flex", gap: 2, ml: "auto" }}>
                 <IconButton
-                  color="primary"
+                  sx={{ color: "#133069" }}
                   onClick={() => handleEditActivity(activity.id)}
                 >
                   <EditIcon />
                 </IconButton>
                 <IconButton
-                  color="secondary"
+                  sx={{ color: "#D2371D" }}
                   onClick={() => handleDeleteOpen(activity.id)}
                 >
                   <DeleteIcon />
                 </IconButton>
               </Box>
-            </Box>
-          </ListItem>
-        ))}
-      </List>
+            </ListItem>
+          ))}
+        </List>
+      )}
 
       <Modal
         open={openModal}
@@ -182,9 +273,15 @@ const ClassroomDetailPage = () => {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
+            borderRadius: 2,
+            maxWidth: 400,
           }}
         >
-          <Typography variant="h6" gutterBottom>
+          <Typography
+            variant="h6"
+            sx={{ textAlign: "center", mb: 3 }}
+            gutterBottom
+          >
             Tem certeza de que deseja excluir esta atividade?
           </Typography>
           <Box sx={{ display: "flex", gap: 2 }}>
@@ -193,7 +290,7 @@ const ClassroomDetailPage = () => {
               color="error"
               onClick={handleDeleteActivity}
             >
-              Excluir Sala
+              Excluir
             </Button>
             <Button
               variant="outlined"
@@ -205,14 +302,6 @@ const ClassroomDetailPage = () => {
           </Box>
         </ModalBox>
       </Modal>
-
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={() => handleCreateActivity(classroom.id)}
-      >
-        Criar Atividade
-      </Button>
     </Box>
   );
 };

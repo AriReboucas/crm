@@ -1,9 +1,10 @@
 "use client";
 
-import { Box, Typography, TextField, Button } from "@mui/material";
+import { Box, Typography, TextField, Button, IconButton } from "@mui/material";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClassroom } from "@/services/classroom.service";
+import { ChevronLeft } from "@mui/icons-material";
 
 const CreateClassroomPage = () => {
   const [name, setName] = useState("");
@@ -28,16 +29,31 @@ const CreateClassroomPage = () => {
   return (
     <Box
       sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
         padding: 3,
+        maxWidth: 700,
+        margin: "0 auto",
+        textAlign: "center",
       }}
       suppressHydrationWarning
     >
-      <Typography variant="h4" gutterBottom>
-        Nova Sala de Aula
-      </Typography>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "start",
+          alignItems: "center",
+          marginBottom: 3,
+        }}
+      >
+        <IconButton
+          sx={{ color: "#FF7A6A", mr: 2 }}
+          onClick={() => router.push("/classrooms")}
+        >
+          <ChevronLeft />
+        </IconButton>
+        <Typography variant="h4" gutterBottom>
+          Nova Sala de Aula
+        </Typography>
+      </Box>
 
       <TextField
         label="Nome"
@@ -55,6 +71,8 @@ const CreateClassroomPage = () => {
         value={description}
         onChange={(e) => setDescription(e.target.value)}
         sx={{ marginBottom: 2 }}
+        multiline
+        rows={6}
       />
 
       <TextField
@@ -66,16 +84,24 @@ const CreateClassroomPage = () => {
         sx={{ marginBottom: 3 }}
       />
 
-      <Box sx={{ display: "flex", gap: 2 }}>
-        <Button variant="contained" color="primary" onClick={handleSubmit}>
-          Criar Sala de Aula
-        </Button>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          gap: 2,
+          width: "100%",
+        }}
+      >
         <Button
-          variant="outlined"
-          color="primary"
-          onClick={() => router.push("/classrooms")}
+          variant="contained"
+          onClick={handleSubmit}
+          sx={{
+            backgroundColor: "#FF7A6A",
+            transition: "transform 0.2s ease",
+            "&:hover": { transform: "scale(1.05)" },
+          }}
         >
-          Voltar
+          Criar Sala de Aula
         </Button>
       </Box>
     </Box>

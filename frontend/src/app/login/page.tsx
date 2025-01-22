@@ -27,9 +27,30 @@ const LoginPage = () => {
   return (
     <Container
       maxWidth="xs"
-      sx={{ marginTop: 8, border: 1, borderRadius: 2 }}
+      sx={{
+        marginTop: "10%",
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#F2F0E4",
+        padding: 5,
+        borderRadius: 2,
+      }}
       suppressHydrationWarning
     >
+      <Typography
+        variant="h4"
+        align="center"
+        sx={{
+          fontWeight: "bold",
+          marginBottom: 4,
+          color: "#133069",
+          letterSpacing: 1.5,
+          textTransform: "uppercase",
+        }}
+      >
+        Extra HomeWork
+      </Typography>
+
       <Box
         component="form"
         onSubmit={handleSubmit}
@@ -37,13 +58,19 @@ const LoginPage = () => {
           display: "flex",
           flexDirection: "column",
           gap: 2,
-          padding: 3,
+          padding: 4,
           boxShadow: 3,
           borderRadius: 2,
-          backgroundColor: "background.paper",
+          backgroundColor: "#FFFFFF",
+          width: "100%",
         }}
       >
-        <Typography variant="h5" align="center" marginBottom={3}>
+        <Typography
+          variant="h6"
+          align="center"
+          marginBottom={3}
+          sx={{ color: "#133069" }}
+        >
           Login
         </Typography>
 
@@ -58,7 +85,7 @@ const LoginPage = () => {
         />
 
         <TextField
-          label="Password"
+          label="Senha"
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
@@ -66,7 +93,19 @@ const LoginPage = () => {
           required
         />
 
-        <Button variant="contained" color="primary" type="submit" fullWidth>
+        <Button
+          variant="contained"
+          type="submit"
+          fullWidth
+          sx={{
+            backgroundColor: "#FF7A6A",
+            "&:hover": {
+              backgroundColor: "#D2371D",
+            },
+            color: "#FFFFFF",
+            fontWeight: "bold",
+          }}
+        >
           Login
         </Button>
 

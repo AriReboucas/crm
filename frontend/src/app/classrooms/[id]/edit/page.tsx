@@ -1,9 +1,10 @@
 "use client";
 
-import { Box, Typography, TextField, Button } from "@mui/material";
+import { Box, Typography, TextField, Button, IconButton } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { updateClassroom, getClassroom } from "@/services/classroom.service";
+import { ChevronLeft } from "@mui/icons-material";
 
 const EditClassroomPage = () => {
   const [name, setName] = useState("");
@@ -56,16 +57,37 @@ const EditClassroomPage = () => {
   return (
     <Box
       sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
         padding: 3,
+        maxWidth: 700,
+        margin: "0 auto",
+        textAlign: "center",
       }}
       suppressHydrationWarning
     >
-      <Typography variant="h4" gutterBottom>
-        Editar Sala de Aula
-      </Typography>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "start",
+          alignItems: "center",
+          marginBottom: 3,
+        }}
+      >
+        <IconButton
+          sx={{ color: "#FF7A6A", mr: 2 }}
+          onClick={() => router.push("/classrooms")}
+        >
+          <ChevronLeft />
+        </IconButton>
+        <Typography
+          variant="h4"
+          sx={{
+            fontWeight: 500,
+          }}
+          gutterBottom
+        >
+          Editar: {classroom.name}
+        </Typography>
+      </Box>
 
       <TextField
         label="Nome"
@@ -73,15 +95,6 @@ const EditClassroomPage = () => {
         fullWidth
         value={name}
         onChange={(e) => setName(e.target.value)}
-        sx={{ marginBottom: 2 }}
-      />
-
-      <TextField
-        label="Descrição"
-        variant="outlined"
-        fullWidth
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
         sx={{ marginBottom: 2 }}
       />
 
@@ -94,16 +107,29 @@ const EditClassroomPage = () => {
         sx={{ marginBottom: 3 }}
       />
 
+      <TextField
+        label="Descrição"
+        variant="outlined"
+        fullWidth
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+        sx={{ marginBottom: 2 }}
+        multiline
+        rows={6}
+      />
+
       <Box sx={{ display: "flex", gap: 2 }}>
-        <Button variant="contained" color="primary" onClick={handleSubmit}>
-          Salvar
-        </Button>
         <Button
-          variant="outlined"
-          color="primary"
-          onClick={() => router.push("/classrooms")}
+          variant="contained"
+          onClick={handleSubmit}
+          sx={{
+            marginLeft: 2,
+            backgroundColor: "#FF7A6A",
+            transition: "transform 0.2s ease",
+            "&:hover": { transform: "scale(1.05)" },
+          }}
         >
-          Voltar
+          Salvar
         </Button>
       </Box>
     </Box>

@@ -15,6 +15,8 @@ import {
 import { useRouter } from "next/navigation";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import AddIcon from "@mui/icons-material/Add";
+
 import {
   deleteClassroom,
   getAllClassrooms,
@@ -79,59 +81,110 @@ const ClassroomsPage = () => {
         flexDirection: "column",
         alignItems: "center",
         padding: 3,
+        width: {
+          xs: "100%",
+        },
       }}
       suppressHydrationWarning
     >
-      <Typography variant="h4" gutterBottom>
-        Salas de Aula
-      </Typography>
-
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={handleCreate}
-        sx={{ display: "flex", flexDirection: "column", marginBottom: 3 }}
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-evenly",
+          width: {
+            xs: "100%",
+            sm: 1500,
+          },
+          marginBottom: 3,
+        }}
       >
-        Criar Nova Sala
-      </Button>
+        <Typography
+          variant="h4"
+          sx={{
+            marginLeft: 2,
+            marginBottom: 0,
+          }}
+          gutterBottom
+        >
+          Salas de Aula
+        </Typography>
+
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleCreate}
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            paddingX: 3,
+            marginRight: 2,
+            backgroundColor: "#FF7A6A",
+            textTransform: "none",
+            transition: "transform 0.2s ease",
+            "&:hover": { transform: "scale(1.05)" },
+          }}
+        >
+          <AddIcon />
+        </Button>
+      </Box>
 
       {classrooms.length === 0 ? (
-        <Typography variant="h6">Nenhuma sala criada.</Typography>
+        <Typography variant="h6" color="text.secondary">
+          Nenhuma sala criada.
+        </Typography>
       ) : (
         <List>
           {classrooms.map((classroom) => (
             <ListItem
               key={classroom.id}
-              sx={{ display: "flex", flexDirection: "column", marginBottom: 2 }}
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+
+                backgroundColor: "background.paper",
+                borderRadius: 1,
+                boxShadow: 1,
+                marginBottom: 2,
+                transition: "transform 0.2s ease",
+                "&:hover": {
+                  transform: "scale(1.05)",
+                  backgroundColor: "action.hover",
+                },
+              }}
             >
               <Box
                 sx={{
                   display: "flex",
                   justifyContent: "space-between",
+                  textAlign: "left",
                   alignItems: "center",
                 }}
               >
                 <Button
-                  onClick={() => handleClassroomClick(classroom.id)} // Redirecionar ao clicar
+                  onClick={() => handleClassroomClick(classroom.id)}
                   variant="text"
-                  sx={{ textAlign: "left" }}
+                  sx={{ color: "text.primary" }}
                 >
                   <Typography variant="h6">{classroom.name}</Typography>
                 </Button>
-                <Box sx={{ display: "flex", gap: 1 }}>
-                  <IconButton
-                    color="primary"
-                    onClick={() => handleEdit(classroom.id)}
-                  >
-                    <EditIcon />
-                  </IconButton>
-                  <IconButton
-                    color="secondary"
-                    onClick={() => handleDeleteOpen(classroom.id)}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
-                </Box>
+              </Box>
+
+              <Box sx={{ display: "flex", gap: 2, ml: "auto" }}>
+                <IconButton
+                  sx={{ color: "#133069" }}
+                  onClick={() => handleEdit(classroom.id)}
+                >
+                  <EditIcon />
+                </IconButton>
+                <IconButton
+                  sx={{ color: "#D2371D" }}
+                  onClick={() => handleDeleteOpen(classroom.id)}
+                >
+                  <DeleteIcon />
+                </IconButton>
               </Box>
             </ListItem>
           ))}
@@ -155,9 +208,15 @@ const ClassroomsPage = () => {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
+            borderRadius: 2,
+            maxWidth: 400,
           }}
         >
-          <Typography variant="h6" gutterBottom>
+          <Typography
+            variant="h6"
+            sx={{ textAlign: "center", mb: 3 }}
+            gutterBottom
+          >
             Tem certeza de que deseja excluir esta sala?
           </Typography>
           <Box sx={{ display: "flex", gap: 2 }}>
@@ -166,7 +225,7 @@ const ClassroomsPage = () => {
               color="error"
               onClick={handleDeleteClassroom}
             >
-              Excluir Sala
+              Excluir
             </Button>
             <Button
               variant="outlined"

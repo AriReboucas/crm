@@ -1,9 +1,10 @@
 "use client";
 
-import { Box, Typography, TextField, Button } from "@mui/material";
+import { Box, Typography, TextField, Button, IconButton } from "@mui/material";
 import { useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { createActivity } from "@/services/activity.service";
+import { ChevronLeft } from "@mui/icons-material";
 
 const CreateActivityPage = () => {
   const [title, setTitle] = useState("");
@@ -39,16 +40,31 @@ const CreateActivityPage = () => {
   return (
     <Box
       sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
         padding: 3,
+        maxWidth: 700,
+        margin: "0 auto",
+        textAlign: "center",
       }}
       suppressHydrationWarning
     >
-      <Typography variant="h4" gutterBottom>
-        Nova Atividade
-      </Typography>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "start",
+          alignItems: "center",
+          marginBottom: 3,
+        }}
+      >
+        <IconButton
+          sx={{ color: "#FF7A6A", mr: 2 }}
+          onClick={() => router.push("/classrooms")}
+        >
+          <ChevronLeft />
+        </IconButton>
+        <Typography variant="h4" gutterBottom>
+          Nova Atividade
+        </Typography>
+      </Box>
 
       <TextField
         label="Nome"
@@ -77,16 +93,24 @@ const CreateActivityPage = () => {
         sx={{ marginBottom: 3 }}
       />
 
-      <Box sx={{ display: "flex", gap: 2 }}>
-        <Button variant="contained" color="primary" onClick={handleSubmit}>
-          Criar Atividade
-        </Button>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          gap: 2,
+          width: "100%",
+        }}
+      >
         <Button
-          variant="outlined"
-          color="primary"
-          onClick={() => router.push("/classrooms")}
+          variant="contained"
+          sx={{
+            backgroundColor: "#FF7A6A",
+            transition: "transform 0.2s ease",
+            "&:hover": { transform: "scale(1.05)" },
+          }}
+          onClick={handleSubmit}
         >
-          Voltar
+          Criar Atividade
         </Button>
       </Box>
     </Box>

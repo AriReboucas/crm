@@ -34,32 +34,68 @@ const ActivityPage = () => {
   return (
     <Box
       sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
+        padding: 3,
+        maxWidth: 700,
+        margin: "0 auto",
+        textAlign: "center",
       }}
       suppressHydrationWarning
     >
-      <Box sx={{ display: "flex", justifyContent: "space-between", my: 2 }}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "flex-start",
+          alignItems: "center",
+          marginBottom: 3,
+        }}
+      >
         <IconButton
-          color="primary"
           onClick={() => router.push(`/classrooms/${activity.classroom_id}`)}
-          sx={{ mr: 2 }}
+          sx={{ color: "#FF7A6A", mr: 2 }}
         >
           <ChevronLeft />
         </IconButton>
 
-        <Typography variant="h4" component="h1" gutterBottom>
+        <Typography
+          variant="h4"
+          component="h1"
+          sx={{ marginBottom: 0 }}
+          gutterBottom
+        >
           {activity?.title}
         </Typography>
       </Box>
 
-      <Box>
-        <Typography variant="body1" component="p" gutterBottom>
+      <Box
+        sx={{
+          marginBottom: 3,
+          padding: 2,
+          borderRadius: 2,
+          backgroundColor: "background.paper",
+          boxShadow: 1,
+        }}
+      >
+        <Typography
+          variant="h6"
+          color="text.secondary"
+          gutterBottom
+          sx={{
+            fontWeight: "bold",
+            fontSize: { xs: "1.2rem", sm: "1.5rem" },
+            marginBottom: 1,
+          }}
+        >
           {activity?.subject}
         </Typography>
 
-        <Typography variant="body1" component="p" gutterBottom>
+        <Typography
+          variant="body1"
+          gutterBottom
+          sx={{
+            fontSize: { xs: "1rem", sm: "1.25rem" },
+            color: "text.primary",
+          }}
+        >
           {activity?.description}
         </Typography>
       </Box>

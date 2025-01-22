@@ -1,9 +1,9 @@
 "use client";
 
 import { updateActivity, getActivity } from "@/services/activity.service";
-import { Box, Typography, TextField, Button } from "@mui/material";
+import { ChevronLeft } from "@mui/icons-material";
+import { Box, Typography, TextField, Button, IconButton } from "@mui/material";
 import { useParams, useRouter } from "next/navigation";
-import router from "next/router";
 import { useEffect, useState } from "react";
 
 const EditActivityPage = () => {
@@ -58,16 +58,37 @@ const EditActivityPage = () => {
   return (
     <Box
       sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
         padding: 3,
+        maxWidth: 700,
+        margin: "0 auto",
+        textAlign: "center",
       }}
       suppressHydrationWarning
     >
-      <Typography variant="h4" gutterBottom>
-        Editar Sala de Aula
-      </Typography>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "start",
+          alignItems: "center",
+          marginBottom: 3,
+        }}
+      >
+        <IconButton
+          sx={{ color: "#FF7A6A", mr: 2 }}
+          onClick={() => router.push(`/classrooms/${activity.classroom_id}`)}
+        >
+          <ChevronLeft />
+        </IconButton>
+        <Typography
+          variant="h4"
+          sx={{
+            fontWeight: 500,
+          }}
+          gutterBottom
+        >
+          Editar: {activity.title}
+        </Typography>
+      </Box>
 
       <TextField
         label="Título"
@@ -97,15 +118,17 @@ const EditActivityPage = () => {
       />
 
       <Box sx={{ display: "flex", gap: 2 }}>
-        <Button variant="contained" color="primary" onClick={handleSubmit}>
-          Salvar
-        </Button>
         <Button
-          variant="outlined"
-          color="primary"
-          onClick={() => router.push(`/classrooms/${activity.classroom_id}`)}
+          variant="contained"
+          onClick={handleSubmit}
+          sx={{
+            marginLeft: 2,
+            backgroundColor: "#FF7A6A",
+            transition: "transform 0.2s ease",
+            "&:hover": { transform: "scale(1.05)" },
+          }}
         >
-          Voltar
+          Salvar
         </Button>
       </Box>
     </Box>
