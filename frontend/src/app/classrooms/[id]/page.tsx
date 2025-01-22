@@ -108,6 +108,7 @@ const ClassroomDetailPage = () => {
         <IconButton
           sx={{ color: "#FF7A6A", mr: 2 }}
           onClick={() => router.push("/classrooms")}
+          id="back-btn"
         >
           <ChevronLeft />
         </IconButton>
@@ -182,7 +183,7 @@ const ClassroomDetailPage = () => {
         </Typography>
         <Button
           variant="contained"
-          color="primary"
+          id="create-act-btn"
           onClick={() => handleCreateActivity(classroom.id)}
           sx={{
             display: "flex",
@@ -243,12 +244,14 @@ const ClassroomDetailPage = () => {
                   <IconButton
                     sx={{ color: "#133069" }}
                     onClick={() => handleEditActivity(activity.id)}
+                    id="edit-act-btn"
                   >
                     <EditIcon />
                   </IconButton>
                   <IconButton
                     sx={{ color: "#D2371D" }}
                     onClick={() => handleDeleteOpen(activity.id)}
+                    id="delete-act-btn"
                   >
                     <DeleteIcon />
                   </IconButton>
@@ -288,6 +291,7 @@ const ClassroomDetailPage = () => {
           </Typography>
           <Box sx={{ display: "flex", gap: 2 }}>
             <Button
+              id="confirm-delete-act-btn"
               variant="contained"
               color="error"
               onClick={handleDeleteActivity}
@@ -295,6 +299,7 @@ const ClassroomDetailPage = () => {
               Excluir
             </Button>
             <Button
+              id="cancel-delete-act-btn"
               variant="outlined"
               color="primary"
               onClick={handleDeleteClose}

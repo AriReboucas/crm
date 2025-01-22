@@ -57,6 +57,9 @@ const CreateClassroomPage = () => {
 
       <TextField
         label="Nome"
+        type="text"
+        id="name"
+        name="name"
         variant="outlined"
         fullWidth
         value={name}
@@ -66,6 +69,9 @@ const CreateClassroomPage = () => {
 
       <TextField
         label="Descrição"
+        type="text"
+        id="description"
+        name="description"
         variant="outlined"
         fullWidth
         value={description}
@@ -77,6 +83,9 @@ const CreateClassroomPage = () => {
 
       <TextField
         label="Matéria"
+        type="text"
+        id="subject"
+        name="subject"
         variant="outlined"
         fullWidth
         value={subject}
@@ -94,6 +103,7 @@ const CreateClassroomPage = () => {
       >
         <Button
           variant="contained"
+          id="create-cl-btn"
           onClick={handleSubmit}
           sx={{
             backgroundColor: "#FF7A6A",

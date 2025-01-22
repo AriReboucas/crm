@@ -93,6 +93,8 @@ const EditActivityPage = () => {
 
       <TextField
         label="Título"
+        id="act-title"
+        name="act-title"
         variant="outlined"
         fullWidth
         value={title}
@@ -102,6 +104,8 @@ const EditActivityPage = () => {
 
       <TextField
         label="Descrição"
+        id="act-description"
+        name="act-description"
         variant="outlined"
         fullWidth
         value={description}
@@ -111,6 +115,8 @@ const EditActivityPage = () => {
 
       <TextField
         label="Matéria"
+        id="act-subject"
+        name="act-subject"
         variant="outlined"
         fullWidth
         value={subject}
@@ -121,6 +127,7 @@ const EditActivityPage = () => {
       <Box sx={{ display: "flex", gap: 2 }}>
         <Button
           variant="contained"
+          id="edit-act-btn"
           onClick={handleSubmit}
           sx={{
             marginLeft: 2,

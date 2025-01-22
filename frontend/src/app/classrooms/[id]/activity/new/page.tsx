@@ -68,6 +68,8 @@ const CreateActivityPage = () => {
 
       <TextField
         label="Nome"
+        id="act-name"
+        name="act-name"
         variant="outlined"
         fullWidth
         value={title}
@@ -77,6 +79,8 @@ const CreateActivityPage = () => {
 
       <TextField
         label="Descrição"
+        id="act-description"
+        name="act-description"
         variant="outlined"
         fullWidth
         value={description}
@@ -86,6 +90,8 @@ const CreateActivityPage = () => {
 
       <TextField
         label="Matéria"
+        id="act-subject"
+        name="act-subject"
         variant="outlined"
         fullWidth
         value={subject}
@@ -103,6 +109,7 @@ const CreateActivityPage = () => {
       >
         <Button
           variant="contained"
+          id="create-act-btn"
           sx={{
             backgroundColor: "#FF7A6A",
             transition: "transform 0.2s ease",

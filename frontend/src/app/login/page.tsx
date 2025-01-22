@@ -77,6 +77,8 @@ const LoginPage = () => {
         <TextField
           label="Email"
           type="email"
+          id="email"
+          name="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           fullWidth
@@ -87,6 +89,8 @@ const LoginPage = () => {
         <TextField
           label="Senha"
           type="password"
+          id="password"
+          name="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           fullWidth
@@ -96,6 +100,7 @@ const LoginPage = () => {
         <Button
           variant="contained"
           type="submit"
+          id="login-button"
           fullWidth
           sx={{
             backgroundColor: "#FF7A6A",

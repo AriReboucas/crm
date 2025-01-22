@@ -177,12 +177,14 @@ const ClassroomsPage = () => {
                 <IconButton
                   sx={{ color: "#133069" }}
                   onClick={() => handleEdit(classroom.id)}
+                  id="edit-cl-btn"
                 >
                   <EditIcon />
                 </IconButton>
                 <IconButton
                   sx={{ color: "#D2371D" }}
                   onClick={() => handleDeleteOpen(classroom.id)}
+                  id="delete-cl-btn"
                 >
                   <DeleteIcon />
                 </IconButton>
@@ -225,6 +227,7 @@ const ClassroomsPage = () => {
               variant="contained"
               color="error"
               onClick={handleDeleteClassroom}
+              id="confirm-delete-cl-btn"
             >
               Excluir
             </Button>
@@ -232,6 +235,7 @@ const ClassroomsPage = () => {
               variant="outlined"
               color="primary"
               onClick={handleDeleteClose}
+              id="cancel-delete-cl-btn"
             >
               Cancelar
             </Button>
