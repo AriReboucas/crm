@@ -55,5 +55,10 @@ describe('activity', () => {
         cy.get('#confirm-delete-act-btn').click()
 
         cy.url().should('include', '/classrooms')
+
+        cy.get('#back-btn').click()
+
+        cy.url().should('include', '/classrooms')
+
     })
 })

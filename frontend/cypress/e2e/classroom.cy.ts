@@ -26,5 +26,13 @@ describe('classroom', () => {
 
         cy.url().should('include', '/classrooms')
 
+        cy.get('#delete-cl-btn').click()
+
+        cy.get('#confirm-delete-cl-btn').click()
+
+        cy.url().should('include', '/classrooms')
+
+
+
     })
 })

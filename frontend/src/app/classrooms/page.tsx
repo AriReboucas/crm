@@ -144,6 +144,10 @@ const ClassroomsPage = () => {
                 flexDirection: "row",
                 justifyContent: "space-between",
                 alignItems: "center",
+                width: {
+                  xs: "100%",
+                  sm: 700,
+                },
 
                 backgroundColor: "background.paper",
                 borderRadius: 1,
