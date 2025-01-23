@@ -105,7 +105,11 @@ export const updateClassroom = async (req: Request, res: Response) => {
 export const deleteClassroom = async (req: Request, res: Response) => {
     try {
         const { classroomId } = req.params;
-
+        await prisma.activity.deleteMany({
+            where: {
+                classroom_id: Number(classroomId)
+            }
+        })
         const deletedClassroom = await prisma.classroom.delete({
             where: {
                 id: Number(classroomId)
